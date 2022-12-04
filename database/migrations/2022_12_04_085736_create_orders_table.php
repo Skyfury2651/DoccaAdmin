@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('shipper_id')->nullable();
             $table->string('status');
 
-            $table->foreign('shipper_id')->references('id')->on('shippers');
+            $table->foreign('shipper_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
