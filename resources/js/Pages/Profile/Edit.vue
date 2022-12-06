@@ -1,42 +1,38 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
+import { mdiAccount } from '@mdi/js';
+import SectionMain from '@/Components/SectionMain.vue';
+import UserCard from '@/Components/UserCard.vue';
+import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 
 defineProps({
-    mustVerifyEmail: Boolean,
-    status: String,
+  mustVerifyEmail: Boolean,
+  status: String,
 });
 </script>
 
 <template>
-    <Head title="Profile" />
+  <LayoutAuthenticated>
+    <SectionMain>
+      <SectionTitleLineWithButton
+        :icon="mdiAccount"
+        title="Profile"
+        main
+      >
+      </SectionTitleLineWithButton>
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
-        </template>
+      <UserCard
+        class="mb-6"
+        :is-verified="mustVerifyEmail"
+      />
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <UpdateProfileInformationForm
-                        :must-verify-email="mustVerifyEmail"
-                        :status="status"
-                        class="max-w-xl"
-                    />
-                </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <UpdateProfileInformationForm />
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <UpdatePasswordForm class="max-w-xl" />
-                </div>
-
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <DeleteUserForm class="max-w-xl" />
-                </div>
-            </div>
-        </div>
-    </AuthenticatedLayout>
+        <UpdatePasswordForm />
+      </div>
+    </SectionMain>
+  </LayoutAuthenticated>
 </template>
