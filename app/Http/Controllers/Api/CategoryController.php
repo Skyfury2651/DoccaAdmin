@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
 use App\Http\Services\CategoryService;
 use App\Http\Traits\HasResponseApi;
 use Illuminate\Http\Request;

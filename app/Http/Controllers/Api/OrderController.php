@@ -3,29 +3,29 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\ProductService;
+use App\Http\Services\OrderService;
 use App\Http\Traits\HasResponseApi;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class OrderController extends Controller
 {
     use HasResponseApi;
 
-    public function index(Request $request, ProductService $productService)
+    public function myOrder(Request $request, OrderService $orderService)
     {
         try {
-            $validKeys = ['page', 'per_page', 'category_id'];
+            $validKeys = ['per_page', 'page'];
 
-            return $this->apiResponse($productService->productList($request->only($validKeys)));
+            return $this->apiResponse($orderService->myOrderList($request->only($validKeys)));
         } catch (\Exception $exception) {
             return $this->apiResponse(null, $exception->getCode(), $exception->getMessage());
         }
     }
 
-    public function show(Request $request, int $id, ProductService $productService)
+    public function show(Request $request,int $id,OrderService $orderService)
     {
         try {
-            return $this->apiResponse($productService->productDetail($id));
+            return $this->apiResponse($orderService->orderDetail($id));
         } catch (\Exception $exception) {
             return $this->apiResponse(null, $exception->getCode(), $exception->getMessage());
         }

@@ -33,7 +33,7 @@ class UserService
         throw new \Exception('Email or password wrong',422);
     }
 
-    public function registerUser(array $params)
+    public function registerUser(array $params, bool $isMember = false)
     {
        $user = $this->model->create([
             'name' => $params['name'],
@@ -41,7 +41,7 @@ class UserService
             'password' => Hash::make($params['password']),
         ]);
 
-       $user->assignRole(Role::ROLE_MEMBER);
+       $user->assignRole($isMember ? Role::ROLE_MEMBER : Role::ROLE_CUSTOMER);
 
        Auth::login($user);
 
