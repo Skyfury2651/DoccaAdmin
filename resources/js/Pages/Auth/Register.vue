@@ -1,141 +1,143 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { useForm, usePage, Head } from '@inertiajs/inertia-vue3';
+import { computed } from 'vue';
+import { mdiAccount, mdiEmail, mdiFormTextboxPassword } from '@mdi/js';
+import LayoutGuest from '@/Layouts/LayoutGuest.vue';
+import SectionFullScreen from '@/Components/SectionFullScreen.vue';
+import CardBox from '@/Components/CardBox.vue';
+import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue';
+import FormField from '@/Components/FormField.vue';
+import FormControl from '@/Components/FormControl.vue';
+import BaseDivider from '@/Components/BaseDivider.vue';
+import BaseButton from '@/Components/BaseButton.vue';
+import BaseButtons from '@/Components/BaseButtons.vue';
+import FormValidationErrors from '@/Components/FormValidationErrors.vue';
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
+  name: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+  terms: [],
 });
 
+const hasTermsAndPrivacyPolicyFeature = computed(
+  () => usePage().props.value?.jetstream?.hasTermsAndPrivacyPolicyFeature
+);
+
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+  form
+    .transform((data) => ({
+      ...data,
+      terms: form.terms && form.terms.length,
+    }))
+    .post(route('register'), {
+      onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Register" />
+  <LayoutGuest>
+    <Head title="Register" />
 
-        <div class="auth-form-wrapper px-4 py-5">
-            <a
-                href="#"
-                class="noble-ui-logo d-block mb-2"
-                >Noble<span>UI</span></a
-            >
-            <h5 class="text-muted fw-normal mb-4">Create a free account.</h5>
-            <form @submit.prevent="submit">
-                <div class="mb-3">
-                    <InputLabel
-                        for="name"
-                        value="Name"
-                        class="form-label"
-                    />
+    <SectionFullScreen
+      v-slot="{ cardClass }"
+      bg="purplePink"
+    >
+      <CardBox
+        :class="cardClass"
+        class="my-24"
+        is-form
+        @submit.prevent="submit"
+      >
+        <FormValidationErrors />
 
-                    <TextInput
-                        id="name"
-                        type="text"
-                        class="form-control"
-                        v-model="form.name"
-                        required
-                        autocomplete="name"
-                        placeholder="Name"
-                    />
+        <FormField
+          label="Name"
+          label-for="name"
+          help="Please enter your name"
+        >
+          <FormControl
+            v-model="form.name"
+            id="name"
+            :icon="mdiAccount"
+            autocomplete="name"
+            type="text"
+            required
+          />
+        </FormField>
 
-                    <InputError
-                        class="mt-2"
-                        :message="form.errors.name"
-                    />
-                </div>
+        <FormField
+          label="Email"
+          label-for="email"
+          help="Please enter your email"
+        >
+          <FormControl
+            v-model="form.email"
+            id="email"
+            :icon="mdiEmail"
+            autocomplete="email"
+            type="email"
+            required
+          />
+        </FormField>
 
-                <div class="mb-3">
-                    <InputLabel
-                        for="email"
-                        value="Email address"
-                        class="form-label"
-                    />
+        <FormField
+          label="Password"
+          label-for="password"
+          help="Please enter new password"
+        >
+          <FormControl
+            v-model="form.password"
+            id="password"
+            :icon="mdiFormTextboxPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+          />
+        </FormField>
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        class="form-control"
-                        v-model="form.email"
-                        required
-                        autocomplete="email"
-                        placeholder="Email"
-                    />
+        <FormField
+          label="Confirm Password"
+          label-for="password_confirmation"
+          help="Please confirm your password"
+        >
+          <FormControl
+            v-model="form.password_confirmation"
+            id="password_confirmation"
+            :icon="mdiFormTextboxPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+          />
+        </FormField>
 
-                    <InputError
-                        class="mt-2"
-                        :message="form.errors.email"
-                    />
-                </div>
-                <div class="mb-3">
-                    <InputLabel
-                        for="password"
-                        value="Password"
-                        class="form-label"
-                    />
+        <FormCheckRadioGroup
+          v-if="hasTermsAndPrivacyPolicyFeature"
+          v-model="form.terms"
+          name="remember"
+          :options="{ agree: 'I agree to the Terms' }"
+        />
 
-                    <TextInput
-                        id="password"
-                        type="password"
-                        class="form-control"
-                        v-model="form.password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="Password"
-                    />
+        <BaseDivider />
 
-                    <InputError
-                        class="mt-2"
-                        :message="form.errors.password"
-                    />
-                </div>
-                <div class="mb-3">
-                    <InputLabel
-                        for="password_confirmation"
-                        value="Confirm Password"
-                        class="form-label"
-                    />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        class="form-control"
-                        v-model="form.password_confirmation"
-                        required
-                        autocomplete="new-password"
-                        placeholder="Confirm Password"
-                    />
-
-                    <InputError
-                        class="mt-2"
-                        :message="form.errors.password_confirmation"
-                    />
-                </div>
-                <div>
-                    <PrimaryButton
-                        class="btn btn-primary me-2 mb-2 mb-md-0 text-white"
-                        :disabled="form.processing"
-                    >
-                        Sign up
-                    </PrimaryButton>
-                </div>
-                <Link
-                    :href="route('login')"
-                    class="d-block mt-3 text-muted"
-                >
-                    Already registered?
-                </Link>
-            </form>
-        </div>
-    </GuestLayout>
+        <BaseButtons>
+          <BaseButton
+            type="submit"
+            color="info"
+            label="Register"
+            :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing"
+          />
+          <BaseButton
+            :href="route('login')"
+            color="info"
+            outline
+            label="Login"
+          />
+        </BaseButtons>
+      </CardBox>
+    </SectionFullScreen>
+  </LayoutGuest>
 </template>
