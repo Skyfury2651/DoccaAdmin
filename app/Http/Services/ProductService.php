@@ -27,7 +27,7 @@ class ProductService
             ->query();
 
         if (isset($params['category_id']) && $params['category_id']) {
-            $query = $this->filterByCategoryId($query, $params['category_id']);
+            $this->filterByCategoryId($query, $params['category_id']);
         }
 
         return [
@@ -38,9 +38,9 @@ class ProductService
         ];
     }
 
-    public function filterByCategoryId(Builder $builder, int $categoryId)
+    public function filterByCategoryId(Builder &$builder, int $categoryId)
     {
-        return $builder->where('category_id', $categoryId);
+        $builder->where('category_id', $categoryId);
     }
 
     public function productDetail(int $productId)

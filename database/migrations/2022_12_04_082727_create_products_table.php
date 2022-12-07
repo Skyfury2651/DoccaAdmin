@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->longText('description');
             $table->string('status');
+            $table->string('slug');
 
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');
