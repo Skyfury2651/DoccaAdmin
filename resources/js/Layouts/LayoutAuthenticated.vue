@@ -12,17 +12,10 @@ import NavBarItemPlain from '@/Components/NavBarItemPlain.vue';
 import AsideMenu from '@/Components/AsideMenu.vue';
 import FooterBar from '@/Components/FooterBar.vue';
 import { Inertia } from '@inertiajs/inertia';
-import { usePage } from '@inertiajs/inertia-vue3';
 
 Inertia.on('navigate', () => {
   isAsideMobileExpanded.value = false;
   isAsideLgActive.value = false;
-});
-const user = usePage().props.value.auth.user;
-
-useMainStore().setUser({
-  name: user.name,
-  email: user.email,
 });
 
 const layoutAsidePadding = 'xl:pl-60';

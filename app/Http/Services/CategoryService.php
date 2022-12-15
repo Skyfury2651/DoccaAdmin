@@ -26,4 +26,34 @@ class CategoryService
             'total' => $query->count(),
         ];
     }
+
+    public function list (int $paginate = 10)
+    {
+        $query = $this->model->query();
+        $query = $query->with('createdBy', 'updatedBy');
+        return $query->paginate($paginate);
+    }
+
+    public function store(array $params)
+    {
+        return $this->model->create([
+            'name' => $params['name'],
+            'slug' => $params['slug'],
+        ]);
+    }
+
+    public function find (int $id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    public function update(int $id, array $data)
+    {
+        return $this->model->find($id)->update($data);
+    }
+
+    public function destroy(int $id)
+    {
+        return $this->model->findOrFail($id)->delete();
+    }
 }
