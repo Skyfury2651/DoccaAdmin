@@ -2,17 +2,17 @@
 
 namespace App\Http\Services;
 
-use App\Models\Category;
+use App\Models\ProductCategory;
 use Illuminate\Database\Query\Builder;
 
-class CategoryService
+class ProductCategoryService
 {
-    protected Category $model;
+    protected ProductCategory $model;
     protected Builder $query;
 
-    public function __construct(Category $category)
+    public function __construct(ProductCategory $productCategory)
     {
-        $this->model = $category;
+        $this->model = $productCategory;
 
     }
 

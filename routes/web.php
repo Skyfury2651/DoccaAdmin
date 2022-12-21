@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\ProductCategoryController;
 use App\Http\Controllers\Web\ProductController;
 use App\Http\Controllers\Web\ProfileController;
 use Illuminate\Foundation\Application;
@@ -36,13 +36,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/category', 'list')->name('category.list');
-        Route::get('/category/create', 'create')->name('category.create');
-        Route::post('/category', 'store')->name('category.store');
-        Route::get('/category/{id}', 'edit')->name('category.edit');
-        Route::patch('/category/{id}', 'update')->name('category.update');
-        Route::delete('/category/{id}', 'destroy')->name('category.destroy');
+    Route::controller(ProductCategoryController::class)->group(function () {
+        Route::get('/product-category', 'list')->name('product.category.list');
+        Route::get('/product-category/create', 'create')->name('product.category.create');
+        Route::post('/product-category', 'store')->name('product.category.store');
+        Route::get('/product-category/{id}', 'edit')->name('product.category.edit');
+        Route::patch('/product-category/{id}', 'update')->name('product.category.update');
+        Route::delete('/product-category/{id}', 'destroy')->name('product.category.destroy');
     });
 });
 

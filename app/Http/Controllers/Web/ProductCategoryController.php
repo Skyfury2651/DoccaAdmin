@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\CategoryService;
-use Error;
+use App\Http\Services\ProductCategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
-class CategoryController extends Controller
+class ProductCategoryController extends Controller
 {
-    protected $categoryService;
+    protected $productCategoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(ProductCategoryService $productCategoryService)
     {
-        $this->categoryService = $categoryService;
+        $this->productCategoryService = $productCategoryService;
     }
 
     /**
@@ -25,8 +24,8 @@ class CategoryController extends Controller
      */
     public function list()
     {
-        return Inertia::render('Category/List', [
-            'categories' => $this->categoryService->list()
+        return Inertia::render('ProductCategory/List', [
+            'categories' => $this->productCategoryService->list()
         ]);
     }
 
@@ -37,7 +36,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Category/Create');
+        return Inertia::render('ProductCategory/Create');
     }
 
     /**
@@ -48,8 +47,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->categoryService->store($request->only(['name', 'slug']));
-        return Redirect::route('category.list');
+        $this->productCategoryService->store($request->only(['name', 'slug']));
+        return Redirect::route('product.category.list');
     }
 
     /**
@@ -71,8 +70,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = $this->categoryService->find($id);
-        return Inertia::render('Category/Edit', [
+        $category = $this->productCategoryService->find($id);
+        return Inertia::render('ProductCategory/Edit', [
             'category' => $category
         ]);
     }
@@ -86,8 +85,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = $this->categoryService->update($id, $request->all());
-        return Inertia::render('Category/Edit', [
+        $category = $this->productCategoryService->update($id, $request->all());
+        return Inertia::render('ProductCategory/Edit', [
             'category' => $category
         ]);
     }
@@ -100,6 +99,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->categoryService->destroy($id);
+        $this->productCategoryService->destroy($id);
     }
 }

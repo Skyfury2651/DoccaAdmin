@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\CategoryService;
+use App\Http\Services\ProductCategoryService;
 use App\Http\Traits\HasResponseApi;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductCategoryController extends Controller
 {
     use HasResponseApi;
 
-    public function index(Request $request, CategoryService $categoryService)
+    public function index(Request $request, ProductCategoryService $productCategoryService)
     {
         try {
-            $categories = $categoryService->categoryList();
+            $categories = $productCategoryService->categoryList();
 
             return $this->apiResponse($categories);
         } catch (\Exception $exception) {

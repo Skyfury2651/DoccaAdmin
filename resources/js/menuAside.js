@@ -22,8 +22,8 @@ export default [
   },
   {
     icon: mdiShape,
-    label: 'Category',
-    href: route('category.list'),
+    label: 'Product Category',
+    href: route('product.category.list'),
   },
   {
     to: '/tables',

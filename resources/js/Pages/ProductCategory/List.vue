@@ -31,17 +31,20 @@ watch(isModalDeleteActive, (newValue) => {
 });
 
 const deleteCategory = () => {
-  Inertia.delete(route('category.destroy', { id: deleteData.value.id }), {
-    onSuccess: () => {
-      removeCategoryFromList(deleteData.value.id);
-    },
-    onError: () => {
-      // TODO: handle error delete
-    },
-    onFinish: () => {
-      isModalDeleteActive.value = false;
-    },
-  });
+  Inertia.delete(
+    route('product.category.destroy', { id: deleteData.value.id }),
+    {
+      onSuccess: () => {
+        removeCategoryFromList(deleteData.value.id);
+      },
+      onError: () => {
+        // TODO: handle error delete
+      },
+      onFinish: () => {
+        isModalDeleteActive.value = false;
+      },
+    }
+  );
 };
 
 const removeCategoryFromList = (id) => {
@@ -63,7 +66,7 @@ const removeCategoryFromList = (id) => {
           color="info"
           label="New Category"
           :rounded-full="true"
-          :href="route('category.create')"
+          :href="route('product.category.create')"
         />
       </SectionTitleLineWithButton>
       <CardBox
@@ -156,7 +159,7 @@ const removeCategoryFromList = (id) => {
                     color="info"
                     :icon="mdiEye"
                     small
-                    :href="route('category.edit', { id: category.id })"
+                    :href="route('product.category.edit', { id: category.id })"
                   />
                   <BaseButton
                     color="danger"

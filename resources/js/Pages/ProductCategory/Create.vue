@@ -8,25 +8,19 @@ import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.
 import { useForm } from '@inertiajs/inertia-vue3';
 import { goBack } from '@/Utils/utils';
 
-const { category } = defineProps({
-  category: {
-    type: Object,
-  },
-});
-
 const click = () => {
   goBack();
 };
 
 const form = useForm({
-  name: category.name,
-  slug: category.slug,
+  name: '',
+  slug: '',
 });
 
 const submitForm = (value) => {
-  form.patch(route('category.update', { id: category.id }), {
+  form.post(route('product.category.store'), {
     onFinish: () => {
-      // TODO: Handle success updated
+      // TODO: Handle success created
     },
     onError: (error) => {
       console.log(error);
@@ -40,7 +34,7 @@ const submitForm = (value) => {
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiBallotOutline"
-        title="Edit Category"
+        title="Create Category"
         main
       >
         <BaseButton
