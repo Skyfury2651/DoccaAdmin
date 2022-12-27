@@ -65,6 +65,7 @@ const removeCategoryFromList = (id) => {
         main
       >
         <BaseButton
+          class="ml-auto"
           color="info"
           label="New Category"
           :rounded-full="true"
