@@ -85,10 +85,8 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = $this->productCategoryService->update($id, $request->all());
-        return Inertia::render('ProductCategory/Edit', [
-            'category' => $category
-        ]);
+        $this->productCategoryService->update($id, $request->all());
+        return Redirect::route('product.category.list');
     }
 
     /**

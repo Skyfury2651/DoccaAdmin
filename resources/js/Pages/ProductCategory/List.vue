@@ -5,8 +5,10 @@ import CardBox from '@/Components/CardBox.vue';
 import CardBoxModal from '@/Components/CardBoxModal.vue';
 import SectionMain from '@/Components/SectionMain.vue';
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue';
+import TooltipCard from '@/Components/TooltipCard.vue';
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue';
 import { Inertia } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/inertia-vue3';
 import { mdiEye, mdiShape, mdiTrashCan } from '@mdi/js';
 import { computed, ref, watch } from 'vue';
 
@@ -97,12 +99,12 @@ const removeCategoryFromList = (id) => {
             </BaseButtons>
           </template>
         </CardBoxModal>
-        <table>
+        <table class="table-fixed">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Slug</th>
+              <th class="w-10">#</th>
+              <th class="w-48">Name</th>
+              <th class="w-48">Slug</th>
               <th>Created by</th>
               <th>Updated by</th>
               <th>Created at</th>
@@ -119,16 +121,25 @@ const removeCategoryFromList = (id) => {
                 {{ index + 1 }}
               </td>
               <td data-label="Name">
-                {{ category.name }}
+                <TooltipCard :text="category.name">
+                  <Link
+                    :href="route('product.category.edit', { id: category.id })"
+                    class="text-blue-500 underline text-info"
+                  >
+                    <p class="truncate">{{ category.name }}</p>
+                  </Link>
+                </TooltipCard>
               </td>
               <td data-label="Slug">
-                {{ category.slug }}
+                <TooltipCard :text="category.slug">
+                  <p class="truncate">{{ category.slug }}</p>
+                </TooltipCard>
               </td>
               <td data-label="Created by">
-                {{ category.created_by.name }}
+                <p class="truncate">{{ category.created_by.name }}</p>
               </td>
               <td data-label="Updated by">
-                {{ category.updated_by.name }}
+                <p class="truncate">{{ category.updated_by.name }}</p>
               </td>
               <td
                 data-label="Created at"
@@ -137,8 +148,9 @@ const removeCategoryFromList = (id) => {
                 <small
                   class="text-gray-500 dark:text-slate-400"
                   :title="category.created_at"
-                  >{{ category.created_at }}</small
                 >
+                  <p class="truncate">{{ category.created_at }}</p>
+                </small>
               </td>
               <td
                 data-label="Updated at"
@@ -147,8 +159,9 @@ const removeCategoryFromList = (id) => {
                 <small
                   class="text-gray-500 dark:text-slate-400"
                   :title="category.updated_at"
-                  >{{ category.updated_at }}</small
                 >
+                  <p class="truncate">{{ category.updated_at }}</p>
+                </small>
               </td>
               <td class="before:hidden lg:w-1 whitespace-nowrap justify-end">
                 <BaseButtons
