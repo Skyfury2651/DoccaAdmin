@@ -121,7 +121,10 @@ const removeCategoryFromList = (id) => {
                 {{ index + 1 }}
               </td>
               <td data-label="Name">
-                <TooltipCard :text="category.name">
+                <TooltipCard
+                  :text="category.name"
+                  class="md:w-auto w-48"
+                >
                   <Link
                     :href="route('product.category.edit', { id: category.id })"
                     class="text-blue-500 underline text-info"
@@ -131,7 +134,10 @@ const removeCategoryFromList = (id) => {
                 </TooltipCard>
               </td>
               <td data-label="Slug">
-                <TooltipCard :text="category.slug">
+                <TooltipCard
+                  :text="category.slug"
+                  class="md:w-auto w-48"
+                >
                   <p class="truncate">{{ category.slug }}</p>
                 </TooltipCard>
               </td>
