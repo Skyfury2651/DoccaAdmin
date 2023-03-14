@@ -7,8 +7,7 @@ import SectionMain from '@/Components/SectionMain.vue';
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue';
 import TooltipCard from '@/Components/TooltipCard.vue';
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue';
-import { Inertia } from '@inertiajs/inertia';
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { mdiEye, mdiShape, mdiTrashCan } from '@mdi/js';
 import { computed, ref, watch } from 'vue';
 
@@ -33,7 +32,7 @@ watch(isModalDeleteActive, (newValue) => {
 });
 
 const deleteCategory = () => {
-  Inertia.delete(
+  router.delete(
     route('product.category.destroy', { id: deleteData.value.id }),
     {
       onSuccess: () => {

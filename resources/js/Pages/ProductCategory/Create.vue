@@ -5,7 +5,7 @@ import BaseButton from '@/Components/BaseButton.vue';
 import Form from './Partials/Form.vue';
 import LayoutAuthenticated from '@/Layouts/LayoutAuthenticated.vue';
 import SectionTitleLineWithButton from '@/Components/SectionTitleLineWithButton.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import { goBack } from '@/Utils/utils';
 
 const click = () => {
