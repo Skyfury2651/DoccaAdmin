@@ -23,7 +23,7 @@ Route::post('register', [\App\Http\Controllers\Api\Auth\AuthController::class, '
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::resource('product', \App\Http\Controllers\Api\ProductController::class)->only(['index', 'show']);
-    Route::resource('category', \App\Http\Controllers\Api\CategoryController::class)->only('index');
+    Route::resource('category', \App\Http\Controllers\Api\ProductCategoryController::class)->only('index');
 //    Route::resource('users', \App\Http\Controllers\Api\UserController::class);
 
     Route::get('my-orders', [\App\Http\Controllers\Api\OrderController::class, 'myOrder']);

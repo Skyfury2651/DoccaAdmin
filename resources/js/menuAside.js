@@ -11,14 +11,19 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiReact,
+  mdiShape,
 } from '@mdi/js';
 
 export default [
   {
-    to: '/dashboard',
     icon: mdiMonitor,
     label: 'Dashboard',
     href: route('dashboard'),
+  },
+  {
+    icon: mdiShape,
+    label: 'Product Category',
+    href: route('product.category.list'),
   },
   {
     to: '/tables',
