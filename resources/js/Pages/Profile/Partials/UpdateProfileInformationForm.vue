@@ -7,9 +7,9 @@ import FormField from '@/Components/FormField.vue';
 import CardBox from '@/Components/CardBox.vue';
 
 import { mdiAccount, mdiMail } from '@mdi/js';
-import { useForm, usePage } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 
-const user = usePage().props.value.auth.user;
+const user = usePage().props.auth.user;
 
 const profileForm = useForm({
   name: user.name,

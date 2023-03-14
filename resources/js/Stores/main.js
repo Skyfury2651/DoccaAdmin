@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { usePage } from '@inertiajs/inertia-vue3';
+import { usePage } from '@inertiajs/vue3';
 
 export const useMainStore = defineStore('main', {
   state: () => ({
@@ -12,7 +12,7 @@ export const useMainStore = defineStore('main', {
   }),
   getters: {
     getUser() {
-      return usePage().props.value.auth.user;
+      return usePage().props.auth.user;
     },
   },
   actions: {},

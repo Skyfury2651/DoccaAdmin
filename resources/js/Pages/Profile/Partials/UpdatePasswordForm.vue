@@ -70,7 +70,7 @@ import FormField from '@/Components/FormField.vue';
 import FormControl from '@/Components/FormControl.vue';
 import BaseButton from '@/Components/BaseButton.vue';
 import BaseButtons from '@/Components/BaseButtons.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 
 const passwordForm = useForm({
   current_password: '',
