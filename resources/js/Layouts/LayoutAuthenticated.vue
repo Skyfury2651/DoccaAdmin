@@ -3,7 +3,6 @@ import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js';
 import { ref } from 'vue';
 import menuAside from '@/menuAside.js';
 import menuNavBar from '@/menuNavBar.js';
-import { useMainStore } from '@/stores/main.js';
 import { useStyleStore } from '@/stores/style.js';
 import BaseIcon from '@/Components/BaseIcon.vue';
 import FormControl from '@/Components/FormControl.vue';
@@ -11,19 +10,7 @@ import NavBar from '@/Components/NavBar.vue';
 import NavBarItemPlain from '@/Components/NavBarItemPlain.vue';
 import AsideMenu from '@/Components/AsideMenu.vue';
 import FooterBar from '@/Components/FooterBar.vue';
-import { Inertia } from '@inertiajs/inertia';
-import { usePage } from '@inertiajs/inertia-vue3';
-
-Inertia.on('navigate', () => {
-  isAsideMobileExpanded.value = false;
-  isAsideLgActive.value = false;
-});
-const user = usePage().props.value.auth.user;
-
-useMainStore().setUser({
-  name: user.name,
-  email: user.email,
-});
+import { router } from '@inertiajs/vue3';
 
 const layoutAsidePadding = 'xl:pl-60';
 
@@ -42,6 +29,11 @@ const menuClick = (event, item) => {
     Inertia.post(route('logout'));
   }
 };
+
+router.on('navigate', () => {
+  isAsideMobileExpanded.value = false;
+  isAsideLgActive.value = false;
+});
 </script>
 
 <template>
